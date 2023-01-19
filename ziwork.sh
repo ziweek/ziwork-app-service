@@ -1,38 +1,6 @@
 #!/bin/sh
 
 
-
-
-
-# echo $$
-
-# file_name=$0
-# echo ${file_name}
-# all_param=$*
-# echo ${all_param}
-# param_length=$#
-# echo ${param_length}
-
-# param1=$1
-# echo ${param1}
-# param2=$2
-# echo ${param2}
-# param3=$3
-# echo ${param3}
- 
-#  echo -n 'NAME : '
-#  read NAME
-
-# echo "Hello, $NAME"
-# if [ -e "./.env" ];then
-#  echo "file exist"
-#  value=`cat ./.env"`
-#  echo "$value"
-#  less -N "./.env"
-# fi
-
-
-
 ### STATUSCODEs
 status200() {
   echo -e "\033[32m...Sucessfully Done!\033[0m"
@@ -53,6 +21,30 @@ error404() {
 
 
 ### METHOD
+hello() {
+  echo """
+  Hello, there!
+  This is ZIWORK-APP-SERVICE.
+
+  I was designed to construct super-impressive working environments.
+  
+  今からよろしくおねがいします！
+"""
+# """
+#   ==================================================
+
+#     Usage: ziwork <command> [options]
+
+#     Commnads:
+#       login [Options] [name]
+#       get [Options] [name]
+#       post [Options] [name]
+
+#     Options:
+
+#   """
+}
+
 conform() {
   echo -n -e "\033[33mAre you sure? [y/n]: \033[0m"
   read answer
@@ -97,6 +89,25 @@ addSchedule() {
   fi
 }
 
+login() {
+  # echo "This is func login"
+  # 
+  echo -n -e "\033[33mEMAIL : \033[0m"
+  read EMAIL
+  echo -n -e "\033[33mPASSWORD : \033[0m"
+  read -s PASSWORD
+  echo ''
+  # 
+  RES=$(curl -s -X 'GET' 'http://0.0.0.0:0104' | jq '.message')
+  # echo ${RES}
+  if [ ${RES} ]
+  then
+   status200
+  else
+   error404
+  fi
+}
+
 
 
 ### CRUD
@@ -130,43 +141,21 @@ post() {
 #   echo "This is func delete"
 # }
 
-login() {
-  echo "This is func login"
-  # 
-  echo -n -e "\033[33mEMAIL : \033[0m"
-  read EMAIL
-  echo -n -e "\033[33mPASSWORD : \033[0m"
-  read -s PASSWORD
-  echo ''
-  # 
-  curl -X 'GET' 'http://0.0.0.0:5050/'
-  RES=1
-  if [ ${RES} -eq 1 ]
-  then
-   status200
-  elif [ ${RES} -ne 1 ]
-  then
-   error404
-  fi
-}
-
 
 
 ### main
 if [ $1 = "login" ]
 then
-#  echo "input param is login"
   login
+elif [ $1 = "hello" ]
+then
+  hello
 elif [ $1 = "get" ]
 then
-#  echo "input param is get"
   get
 elif [ $1 = "post" ]
 then
   post $2
-# if [ -z $1 ]
-# then
-  
 else
-  error400 $1
+  error404
 fi

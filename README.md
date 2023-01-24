@@ -11,15 +11,17 @@
 <br/>
 
 ## Outline
+
 This application is designed to assist my personal work experience and to make it more efficient.
 
 <br/>
 
 ## Goal
-* Displaying useful information
-* Adding schedule on Google Calender
-* Sending email on Gmail
-* Logging diary on Database
+
+- Displaying useful information
+- Adding schedule on Google Calender
+- Sending email on Gmail
+- Logging diary on Database
 
 <br/>
 
@@ -27,22 +29,23 @@ This application is designed to assist my personal work experience and to make i
 
 ### keywords
 
-|keyword|description|
-|-|-|
-|ziwork|let terminal know statement starts|
-|get||
-|post||
-|update||
-|delete||
-|commit||
+| keyword | description                        |
+| ------- | ---------------------------------- |
+| ziwork  | let terminal know statement starts |
+| get     |                                    |
+| post    |                                    |
+| update  |                                    |
+| delete  |                                    |
+| commit  |                                    |
 
 ### tags
-|tag|description|
-|-|-|
-|-d|date|
-|-t|tag|
-|-m|message|
-|-a|account|
+
+| tag | description |
+| --- | ----------- |
+| -d  | date        |
+| -t  | tag         |
+| -m  | message     |
+| -a  | account     |
 
 <br/>
 
@@ -55,3 +58,11 @@ $ ziwork post schedule -d 230106 -t univ -m "개설과목공시"
 ```
 $ ziwork post email -a austin.jiuk.kim@gmail.com
 ```
+
+# Reference
+
+| memo                     | link                                                       |
+| ------------------------ | ---------------------------------------------------------- |
+| Google Calendar API 개요 | https://developers.google.com/calendar/api/guides/overview |
+| Gmail API Overview       | https://developers.google.com/gmail/api/guides             |
+| openai Playground        | https://beta.openai.com/playground                         |

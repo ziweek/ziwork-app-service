@@ -5,6 +5,14 @@ name = "pypi"
 
 [packages]
 fastapi = {extras = ["all"], version = "*"}
+sqlalchemy = "*"
+selenium = "*"
+requests = "*"
+sqladmin = "*"
+google-api-python-client = "*"
+google-auth-httplib2 = "*"
+google-auth-oauthlib = "*"
+openai = "*"
 
 [dev-packages]
 

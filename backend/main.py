@@ -5,9 +5,6 @@
 
 # from fastapi import FastAPI
 
-# from routers import users, items
-# from models import models
-# from config.database import engine
 
 # from config.connection import SessionLocal
 
@@ -21,9 +18,27 @@
 
 from fastapi import FastAPI
 
+from routers import schedules, notices
+
+# from sqladmin import Admin, ModelView
+# from models import models
+
+
+# from config.database import engine
+
 app = FastAPI()
+app.include_router(schedules.router)
+app.include_router(notices.router)
+# admin = Admin(app, engine)
 
 
-@app.get("/")
-async def root():
-    return {"message": True}
+# class UserAdmin(ModelView, model=User):
+#     column_list = [User.id]
+
+
+# admin.add_view(UserAdmin)
+
+
+# @app.get("/")
+# async def root():
+#     return {"message": True}

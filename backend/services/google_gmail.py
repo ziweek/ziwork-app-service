@@ -14,6 +14,9 @@ import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
+
+from models import schemas
+
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://mail.google.com/"]
 
@@ -82,11 +85,11 @@ def credential():
 #     main()
 
 
-def gmail_send_message():
-    email_to = "tsg03232@naver.com"
+def gmail_send_message(email_create: schemas.EmailCreate):
+    email_to = email_create.to
     email_from = "alex.jiuk.kim@gmail.com"
-    email_subject = "Automated draft"
-    email_content = "This is automated draft mail"
+    email_subject = email_create.subject
+    email_content = email_create.text
     """Create and send an email message
     Print the returned  message id
     Returns: Message object, including message id

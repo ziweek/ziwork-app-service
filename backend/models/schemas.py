@@ -1,6 +1,26 @@
-from typing import List, Union
 from pydantic import BaseModel
 
+
+
+class Schedule(BaseModel):
+    title: str
+    date: str
+
+
+class EmailBase(BaseModel):
+    to: str
+    subject: str
+    text: str
+    # from: str
+
+class EmailCreate(EmailBase):
+    pass
+
+class AiChat(BaseModel):
+    text: str
+
+class AiChatCreate(AiChat):
+    pass
 
 # class ItemBase(BaseModel):
 #     title: str
@@ -31,8 +51,3 @@ from pydantic import BaseModel
 
 #     class Config:
 #         orm_mode = True
-
-
-class Schedule(BaseModel):
-    title: str
-    date: str

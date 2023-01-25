@@ -18,7 +18,7 @@
 
 from fastapi import FastAPI
 
-from routers import schedules, notices
+from routers import email, schedules, notices, ai_chat
 
 # from sqladmin import Admin, ModelView
 # from models import models
@@ -27,8 +27,10 @@ from routers import schedules, notices
 # from config.database import engine
 
 app = FastAPI()
-app.include_router(schedules.router)
-app.include_router(notices.router)
+app.include_router(email.router)
+app.include_router(ai_chat.router)
+# app.include_router(schedules.router)
+# app.include_router(notices.router)
 # admin = Admin(app, engine)
 
 

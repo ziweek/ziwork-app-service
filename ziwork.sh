@@ -60,8 +60,8 @@ sendEmail() {
   # echo "This is func sendEmail"
   echo -n -e "\033[33mTO : \033[0m"
   read TO
-  echo -n -e "\033[33mTITLE : \033[0m"
-  read TITLE
+  echo -n -e "\033[33mSUBJECT : \033[0m"
+  read SUBJECT
   echo -e "\033[33mCONTENT : \033[0m" 
   vim email.template.txt
   echo ---
@@ -71,9 +71,52 @@ sendEmail() {
   echo ---
   rm -rf email.template.txt
   conform
-  if [ $? -eq 1 ]
+
+  # 
+  RES=$(curl -X 'POST' \
+  'http://127.0.0.1:8001/api/v1/emails' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "to": "'"${TO}"'",
+  "subject": "'"${SUBJECT}"'",
+  "text": "this is a test mail"
+  }'| jq '.message')
+  echo $RES
+# 
+  if [ ${RES} ]
   then
-    status201
+   status200
+  else
+   error404
+  fi
+}
+
+askQuestion() {
+  # echo "This is func sendEmail"
+  echo -n -e "\033[33mQUESTION : \033[0m"
+  read QUESTION
+  conform
+
+  # 
+  curl -s -X 'POST' \
+  'http://127.0.0.1:8001/api/v1/ai-chat' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "text": "'"${QUESTION}"'"
+  }'| jq '.' > result.json
+  # echo ${result.json}
+
+  RESULT=`cat result.json|jq -r '.result'`
+  MESSAGE=`cat result.json|jq '.message'`
+  echo -e $MESSAGE
+# 
+  if [ ${RESULT} ]
+  then
+   status200
+  else
+   error404
   fi
 }
 
@@ -128,6 +171,10 @@ post() {
   then
     # echo "input param is schedule"
     addSchedule
+  elif [ $1 = "question" ]
+  then
+    # echo "input param is schedule"
+    askQuestion
   else
     error400 $1
   fi
